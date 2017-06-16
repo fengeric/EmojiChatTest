@@ -1,4 +1,4 @@
-package com.feng.comment;
+package com.feng.comment.util;
 
 import android.util.Log;
 

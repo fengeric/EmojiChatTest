@@ -22,4 +22,7 @@
     <color name="background_tab_pressed">#6633B5E5</color>
 
     <color name="emoji_keyboard_bg_light">#f6f5f5</color>
+    <color name="home_page_title_color">#474747</color>
+    <color name="search_unselect_text_color">#8b8b8b</color>
+    <color name="unselect_text_color">#9c9c9c</color>
 </resources>
