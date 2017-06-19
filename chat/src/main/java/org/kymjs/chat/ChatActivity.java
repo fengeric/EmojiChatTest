@@ -17,6 +17,7 @@ import org.kymjs.chat.bean.MessageBean;
 import org.kymjs.chat.emoji.DisplayRules;
 import org.kymjs.chat.inter.OnChatItemClickListener;
 import org.kymjs.chat.util.DateUtil;
+import org.kymjs.chat.util.LogUtil;
 import org.kymjs.chat.util.ToastManager;
 import org.kymjs.chat.widget.KJChatKeyboard;
 import org.kymjs.kjframe.KJActivity;
@@ -44,6 +45,7 @@ public class ChatActivity extends KJActivity {
     public void initWidget() {
         super.initWidget();
         box = (KJChatKeyboard) findViewById(org.kymjs.chat.R.id.chat_msg_input_box);
+        box.hideEditLayout();
         mRealListView = (ListView) findViewById(org.kymjs.chat.R.id.chat_listview);
 
         mRealListView.setSelector(android.R.color.transparent);
@@ -206,9 +208,11 @@ public class ChatActivity extends KJActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && box.isShow()) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && box.isEditLayoutShow()) {
             box.hideLayout();
-            return true;
+            box.hideKeyboard(aty);
+            box.hideEditLayout();
+            return false;
         } else {
             return super.onKeyDown(keyCode, event);
         }
@@ -265,6 +269,7 @@ public class ChatActivity extends KJActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 box.hideLayout();
                 box.hideKeyboard(aty);
+                box.hideEditLayout();
                 return false;
             }
         };
@@ -295,7 +300,9 @@ public class ChatActivity extends KJActivity {
 
             @Override
             public void onCommentClick(int position) {
-                ToastManager.showToast(ChatActivity.this, "onCommentClick:" + position);
+                // ToastManager.showToast(ChatActivity.this, "onCommentClick:" + position);
+                box.showEditLayout();
+                box.showKeyboard(ChatActivity.this);
             }
         };
     }

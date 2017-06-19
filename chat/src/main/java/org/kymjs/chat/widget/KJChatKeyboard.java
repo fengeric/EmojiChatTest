@@ -25,6 +25,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import org.kymjs.chat.OnOperationListener;
@@ -57,6 +58,7 @@ public class KJChatKeyboard extends RelativeLayout implements
     private CheckBox mBtnFace;
     private CheckBox mBtnMore;
     private Button mBtnSend;
+    private LinearLayout chat_all_layout;// 输入框整体布局
 
     /**
      * 表情
@@ -110,6 +112,7 @@ public class KJChatKeyboard extends RelativeLayout implements
     }
 
     private void initWidget() {
+        chat_all_layout = (LinearLayout) findViewById(R.id.chat_all_layout);
         mEtMsg = (EditText) findViewById(R.id.toolbox_et_message);
         mBtnSend = (Button) findViewById(R.id.toolbox_btn_send);
         mBtnFace = (CheckBox) findViewById(R.id.toolbox_btn_face);
@@ -221,6 +224,9 @@ public class KJChatKeyboard extends RelativeLayout implements
         }, 50);
     }
 
+    public boolean isEditLayoutShow(){
+        return chat_all_layout.getVisibility() == VISIBLE;
+    }
 
     public boolean isShow() {
         return mRlFace.getVisibility() == VISIBLE;
@@ -247,6 +253,21 @@ public class KJChatKeyboard extends RelativeLayout implements
             if (imm.isActive() && activity.getCurrentFocus() != null) {
                 imm.hideSoftInputFromWindow(activity.getCurrentFocus()
                         .getWindowToken(), 0);
+            }
+        }
+    }
+
+    public void hideEditLayout(){
+        if (chat_all_layout != null) {
+            chat_all_layout.setVisibility(View.GONE);
+        }
+    }
+
+    public void showEditLayout(){
+        if (chat_all_layout != null) {
+            chat_all_layout.setVisibility(View.VISIBLE);
+            if (mEtMsg != null) {
+                mEtMsg.requestFocus();
             }
         }
     }
