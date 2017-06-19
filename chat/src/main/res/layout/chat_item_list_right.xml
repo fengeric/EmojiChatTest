@@ -2,10 +2,81 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     android:orientation="vertical"
     android:padding="6dp">
 
-    <TextView
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <org.kymjs.chat.view.CircleImageView
+            android:id="@+id/msg_avater"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:src="@drawable/default_avater"
+            app:border_color="@color/white" />
+
+        <TextView
+            android:id="@+id/msg_nick_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/msg_avater"
+            android:text="测试名"
+            android:textColor="@color/home_page_title_color"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/msg_create_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/msg_nick_name"
+            android:text="2015-34-32"
+            android:textColor="@color/unselect_text_color"
+            android:textSize="16sp" />
+
+        <ImageButton
+            android:id="@+id/msg_comment_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:src="@drawable/im_snsimg" />
+    </RelativeLayout>
+
+    <com.rockerhieu.emojicon.EmojiconTextView
+        android:id="@+id/msg_comment_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="20dp"
+        android:paddingBottom="10dp"
+        android:text="内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容"
+        android:textColor="@color/home_page_title_color"
+        android:textSize="16sp" />
+
+    <com.rockerhieu.emojicon.EmojiconTextView
+        android:id="@+id/msg_comment_parent_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/bg_chat"
+        android:text="枫：父评论内容父评论内容fdgdfgsfdgsdfggj;lkkkkkkkkkkkk内容"
+        android:textColor="@color/unselect_text_color"
+        android:textSize="16sp" />
+    <!--<TextView
         android:id="@+id/chat_item_date"
         style="@style/chat_item_date"
         android:layout_gravity="center_horizontal"
@@ -55,6 +126,6 @@
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/chat_item_layout_content"
             android:visibility="gone" />
-    </RelativeLayout>
+    </RelativeLayout>-->
 
 </LinearLayout>

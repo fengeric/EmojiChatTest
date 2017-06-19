@@ -15,8 +15,6 @@
  */
 package org.kymjs.chat.bean;
 
-import java.util.Date;
-
 /**
  * 聊天消息javabean
  *
@@ -31,120 +29,144 @@ public class Message {
     public final static int MSG_STATE_SUCCESS = 1;
     public final static int MSG_STATE_FAIL = 2;
 
-    private Long id;
-    private int type; // 0-text | 1-photo | 2-face | more type ...
-    private int state; // 0-sending | 1-success | 2-fail
-    private String fromUserName;
-    private String fromUserAvatar;
-    private String toUserName;
-    private String toUserAvatar;
-    private String content;
+    private int msg_type; // 0-text | 1-photo | 2-face | more type ...
+    private int msg_state; // 0-sending | 1-success | 2-fail
 
-    private Boolean isSend;
-    private Boolean sendSucces;
-    private Date time;
+    private String msg_id;//消息编号
+    private String msg_comment_id;//评论编号
+    private String msg_comment_avater;//评论人头像
+    private String msg_comment_nick_name;//评论人昵称
+    private String msg_comment_content;//评论内容
+    private String msg_comment_create_time;//创建时间(格式"yyyy-MM-dd HH:mm:ss")
+    private String msg_comment_parent_nick_name;//父评论昵称
+    private String msg_comment_parent_content;//父评论内容
+    private boolean msg_comment_parent_is_del;//父评论是否删除
+    private int msg_comment_like_num;//赞的数量
+    private String msg_comment_user_id;//用户的编号
 
-    public Message(int type, int state, String fromUserName,
-                   String fromUserAvatar, String toUserName, String toUserAvatar,
-                   String content, Boolean isSend, Boolean sendSucces, Date time) {
+    public Message(int msg_type, int msg_state, String msg_id, String msg_comment_id, String msg_comment_avater,
+                   String msg_comment_nick_name, String msg_comment_content, String msg_comment_create_time,
+                   String msg_comment_parent_nick_name, String msg_comment_parent_content, boolean msg_comment_parent_is_del,
+                   int msg_comment_like_num, String msg_comment_user_id) {
         super();
-        this.type = type;
-        this.state = state;
-        this.fromUserName = fromUserName;
-        this.fromUserAvatar = fromUserAvatar;
-        this.toUserName = toUserName;
-        this.toUserAvatar = toUserAvatar;
-        this.content = content;
-        this.isSend = isSend;
-        this.sendSucces = sendSucces;
-        this.time = time;
+        this.msg_type = msg_type;
+        this.msg_state = msg_state;
+        this.msg_id = msg_id;
+        this.msg_comment_id = msg_comment_id;
+        this.msg_comment_avater = msg_comment_avater;
+        this.msg_comment_nick_name = msg_comment_nick_name;
+        this.msg_comment_content = msg_comment_content;
+        this.msg_comment_create_time = msg_comment_create_time;
+        this.msg_comment_parent_nick_name = msg_comment_parent_nick_name;
+        this.msg_comment_parent_content = msg_comment_parent_content;
+
+        this.msg_comment_parent_is_del = msg_comment_parent_is_del;
+        this.msg_comment_like_num = msg_comment_like_num;
+        this.msg_comment_user_id = msg_comment_user_id;
     }
 
-    public Long getId() {
-        return id;
+    public int getMsg_type() {
+        return msg_type;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setMsg_type(int msg_type) {
+        this.msg_type = msg_type;
     }
 
-    public int getType() {
-        return type;
+    public int getMsg_state() {
+        return msg_state;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setMsg_state(int msg_state) {
+        this.msg_state = msg_state;
     }
 
-    public int getState() {
-        return state;
+    public String getMsg_id() {
+        return msg_id;
     }
 
-    public void setState(int state) {
-        this.state = state;
+    public void setMsg_id(String msg_id) {
+        this.msg_id = msg_id;
     }
 
-    public String getFromUserName() {
-        return fromUserName;
+    public String getMsg_comment_id() {
+        return msg_comment_id;
     }
 
-    public void setFromUserName(String fromUserName) {
-        this.fromUserName = fromUserName;
+    public void setMsg_comment_id(String msg_comment_id) {
+        this.msg_comment_id = msg_comment_id;
     }
 
-    public String getFromUserAvatar() {
-        return fromUserAvatar;
+    public String getMsg_comment_avater() {
+        return msg_comment_avater;
     }
 
-    public void setFromUserAvatar(String fromUserAvatar) {
-        this.fromUserAvatar = fromUserAvatar;
+    public void setMsg_comment_avater(String msg_comment_avater) {
+        this.msg_comment_avater = msg_comment_avater;
     }
 
-    public String getToUserName() {
-        return toUserName;
+    public String getMsg_comment_nick_name() {
+        return msg_comment_nick_name;
     }
 
-    public void setToUserName(String toUserName) {
-        this.toUserName = toUserName;
+    public void setMsg_comment_nick_name(String msg_comment_nick_name) {
+        this.msg_comment_nick_name = msg_comment_nick_name;
     }
 
-    public String getToUserAvatar() {
-        return toUserAvatar;
+    public String getMsg_comment_content() {
+        return msg_comment_content;
     }
 
-    public void setToUserAvatar(String toUserAvatar) {
-        this.toUserAvatar = toUserAvatar;
+    public void setMsg_comment_content(String msg_comment_content) {
+        this.msg_comment_content = msg_comment_content;
     }
 
-    public String getContent() {
-        return content;
+    public String getMsg_comment_create_time() {
+        return msg_comment_create_time;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setMsg_comment_create_time(String msg_comment_create_time) {
+        this.msg_comment_create_time = msg_comment_create_time;
     }
 
-    public Boolean getIsSend() {
-        return isSend;
+    public String getMsg_comment_parent_nick_name() {
+        return msg_comment_parent_nick_name;
     }
 
-    public void setIsSend(Boolean isSend) {
-        this.isSend = isSend;
+    public void setMsg_comment_parent_nick_name(String msg_comment_parent_nick_name) {
+        this.msg_comment_parent_nick_name = msg_comment_parent_nick_name;
     }
 
-    public Boolean getSendSucces() {
-        return sendSucces;
+    public String getMsg_comment_parent_content() {
+        return msg_comment_parent_content;
     }
 
-    public void setSendSucces(Boolean sendSucces) {
-        this.sendSucces = sendSucces;
+    public void setMsg_comment_parent_content(String msg_comment_parent_content) {
+        this.msg_comment_parent_content = msg_comment_parent_content;
     }
 
-    public Date getTime() {
-        return time;
+    public boolean isMsg_comment_parent_is_del() {
+        return msg_comment_parent_is_del;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setMsg_comment_parent_is_del(boolean msg_comment_parent_is_del) {
+        this.msg_comment_parent_is_del = msg_comment_parent_is_del;
     }
+
+    public int getMsg_comment_like_num() {
+        return msg_comment_like_num;
+    }
+
+    public void setMsg_comment_like_num(int msg_comment_like_num) {
+        this.msg_comment_like_num = msg_comment_like_num;
+    }
+
+    public String getMsg_comment_user_id() {
+        return msg_comment_user_id;
+    }
+
+    public void setMsg_comment_user_id(String msg_comment_user_id) {
+        this.msg_comment_user_id = msg_comment_user_id;
+    }
+
 }

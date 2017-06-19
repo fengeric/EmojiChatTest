@@ -1,25 +1,10 @@
-/*
- * Copyright (c) 2015, 张涛.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package org.kymjs.chat;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,21 +15,15 @@ import org.kymjs.chat.bean.Emojicon;
 import org.kymjs.chat.bean.Faceicon;
 import org.kymjs.chat.bean.Message;
 import org.kymjs.chat.emoji.DisplayRules;
+import org.kymjs.chat.util.DateUtil;
+import org.kymjs.chat.util.ToastManager;
 import org.kymjs.chat.widget.KJChatKeyboard;
 import org.kymjs.kjframe.KJActivity;
-import org.kymjs.kjframe.ui.ViewInject;
-import org.kymjs.kjframe.utils.FileUtils;
-import org.kymjs.kjframe.utils.KJLoger;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
-/**
- * 聊天主界面
- */
 public class ChatActivity extends KJActivity {
 
     public static final int REQUEST_CODE_GETIMAGE_BYSDCARD = 0x1;
@@ -57,14 +36,14 @@ public class ChatActivity extends KJActivity {
 
     @Override
     public void setRootView() {
-        setContentView(R.layout.activity_chat);
+        setContentView(org.kymjs.chat.R.layout.activity_chat);
     }
 
     @Override
     public void initWidget() {
         super.initWidget();
-        box = (KJChatKeyboard) findViewById(R.id.chat_msg_input_box);
-        mRealListView = (ListView) findViewById(R.id.chat_listview);
+        box = (KJChatKeyboard) findViewById(org.kymjs.chat.R.id.chat_msg_input_box);
+        mRealListView = (ListView) findViewById(org.kymjs.chat.R.id.chat_listview);
 
         mRealListView.setSelector(android.R.color.transparent);
         initMessageInputToolBox();
@@ -75,22 +54,24 @@ public class ChatActivity extends KJActivity {
         box.setOnOperationListener(new OnOperationListener() {
             @Override
             public void send(String content) {
+                if (TextUtils.isEmpty(content)) {
+                    ToastManager.showToast(ChatActivity.this, "input content");
+                    return;
+                }
                 Message message = new Message(Message.MSG_TYPE_TEXT, Message.MSG_STATE_SUCCESS,
-                        "Tom", "avatar", "Jerry",
-                        "avatar", content, true, true, new Date());
+                        "msg_id1", "msg_comment_id1", "http://images.057.com/FlRECihcVIo1WRJAwDldRxYti1Pq",
+                        "nickname1", content, DateUtil.transNowTime(), "msg_comment_parent_nick_name1", "msg_comment_parent_content1", false, 100, "msg_comment_user_id1");
                 datas.add(message);
                 adapter.refresh(datas);
-                createReplayMsg(message);
             }
 
             @Override
             public void selectedFace(Faceicon content) {
                 Message message = new Message(Message.MSG_TYPE_FACE, Message.MSG_STATE_SUCCESS,
-                        "Tom", "avatar", "Jerry", "avatar", content.getPath(), true, true, new
-                        Date());
+                        "msg_id1", "msg_comment_id1", "http://images.057.com/FlRECihcVIo1WRJAwDldRxYti1Pq",
+                        "nickname1", content.getPath(), "2017-06-19 14:33:67", "msg_comment_parent_nick_name1", "msg_comment_parent_content1", false, 100, "msg_comment_user_id1");
                 datas.add(message);
                 adapter.refresh(datas);
-                createReplayMsg(message);
             }
 
             @Override
@@ -110,7 +91,8 @@ public class ChatActivity extends KJActivity {
                         goToAlbum();
                         break;
                     case 1:
-                        ViewInject.toast("跳转相机");
+                        //ViewInject.toast("跳转相机");
+                        ToastManager.showToast(ChatActivity.this, "跳转相机");
                         break;
                 }
             }
@@ -136,7 +118,7 @@ public class ChatActivity extends KJActivity {
         byte[] emoji = new byte[]{
                 (byte) 0xF0, (byte) 0x9F, (byte) 0x98, (byte) 0x81
         };
-        Message message = new Message(Message.MSG_TYPE_TEXT,
+        /*Message message = new Message(Message.MSG_TYPE_TEXT,
                 Message.MSG_STATE_SUCCESS, "\ue415", "avatar", "Jerry", "avatar",
                 new String(emoji), false, true, new Date(System.currentTimeMillis()
                 - (1000 * 60 * 60 * 24) * 8));
@@ -156,11 +138,40 @@ public class ChatActivity extends KJActivity {
         Message message7 = new Message(Message.MSG_TYPE_TEXT,
                 Message.MSG_STATE_SENDING, "Tom", "avatar", "Jerry", "avatar",
                 "<a href=\"http://kymjs.com\">自定义链接</a>也是支持的", true, true, new Date(System.currentTimeMillis()
-                - (1000 * 60 * 60 * 24) * 6));
+                - (1000 * 60 * 60 * 24) * 6));*/
+        Message message1 = new Message(Message.MSG_TYPE_TEXT, Message.MSG_STATE_SUCCESS,
+                "msg_id1", "msg_comment_id1", "http://images.057.com/FlRECihcVIo1WRJAwDldRxYti1Pq",
+                "nickname1", "message1", "2016-06-19 14:33:67", "msg_comment_parent_nick_name1", "msg_comment_parent_content1", false, 101, "msg_comment_user_id1");
 
-        datas.add(message);
+        Message message2 = new Message(Message.MSG_TYPE_TEXT, Message.MSG_STATE_SUCCESS,
+                "msg_id2", "msg_comment_id1", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1497864978450&di=68b127823f451fda353b7709444692de&imgtype=0&src=http%3A%2F%2Ftupian.enterdesk.com%2F2012%2F0602%2Fyt%2F18%2F73869f30446c7978916445105b015d97.jpg",
+                "nickname2", "message2", "2017-06-19 14:49:67", "msg_comment_parent_nick_name2", "msg_comment_parent_content2", false, 102, "msg_comment_user_id2");
+
+        Message message3 = new Message(Message.MSG_TYPE_TEXT, Message.MSG_STATE_SUCCESS,
+                "msg_id3", "msg_comment_id1", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1497864978446&di=e00c8be0a84c0ce718127e530b24c82d&imgtype=0&src=http%3A%2F%2Ftupian.enterdesk.com%2F2013%2Fxll%2F012%2F05%2F9%2F7.jpg",
+                "nickname3", "message3", "2017-06-14 14:33:67", "msg_comment_parent_nick_name3", "msg_comment_parent_content3", false, 103, "msg_comment_user_id3");
+
+        Message message4 = new Message(Message.MSG_TYPE_TEXT, Message.MSG_STATE_SUCCESS,
+                "msg_id4", "msg_comment_id1", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1497864978447&di=8529af65b1312b0502f41615a3089ebd&imgtype=0&src=http%3A%2F%2Fimg4q.duitang.com%2Fuploads%2Fitem%2F201505%2F10%2F20150510055619_ZhsMQ.thumb.224_0.jpeg",
+                "nickname4", "message4", "2017-06-15 14:33:67", "msg_comment_parent_nick_name4", "msg_comment_parent_content4", false, 104, "msg_comment_user_id4");
+
+        Message message5 = new Message(Message.MSG_TYPE_TEXT, Message.MSG_STATE_SUCCESS,
+                "msg_id1", "msg_comment_id1", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1497864978447&di=05a9c95ba42fe36c32d8b75c7187594a&imgtype=0&src=http%3A%2F%2Ftupian.aladd.net%2F2014%2F6%2F37.jpg",
+                "nickname5", "message5", "2017-06-16 14:33:67", "msg_comment_parent_nick_name5", "msg_comment_parent_content5", false, 105, "msg_comment_user_id5");
+
+        Message message6 = new Message(Message.MSG_TYPE_TEXT, Message.MSG_STATE_SUCCESS,
+                "msg_id6", "msg_comment_id1", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1497864978447&di=95f47767514275462af92f4fc940bc63&imgtype=0&src=http%3A%2F%2Fimg.qqzhi.com%2Fupload%2Fimg_1_2808233116D177345603_23.jpg",
+                "nickname6", "message6", "2017-06-17 14:33:67", "msg_comment_parent_nick_name6", "msg_comment_parent_content6", false, 106, "msg_comment_user_id6");
+        Message message7 = new Message(Message.MSG_TYPE_TEXT, Message.MSG_STATE_SUCCESS,
+                "msg_id7", "msg_comment_id1", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1497864978447&di=8aaa2513ba1ef5743006cabc1530c92a&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F609*342%2F22130.jpg",
+                "nickname7", "message7", "2017-06-18 14:33:67", "msg_comment_parent_nick_name7", "msg_comment_parent_content7", false, 107, "msg_comment_user_id7");
+
+
         datas.add(message1);
         datas.add(message2);
+        datas.add(message3);
+        datas.add(message4);
+        datas.add(message5);
         datas.add(message6);
         datas.add(message7);
 
@@ -168,7 +179,7 @@ public class ChatActivity extends KJActivity {
         mRealListView.setAdapter(adapter);
     }
 
-    private void createReplayMsg(Message message) {
+    /*private void createReplayMsg(Message message) {
         final Message reMessage = new Message(message.getType(), Message.MSG_STATE_SUCCESS, "Tom",
                 "avatar", "Jerry", "avatar", message.getType() == Message.MSG_TYPE_TEXT ? "返回:"
                 + message.getContent() : message.getContent(), false,
@@ -190,7 +201,7 @@ public class ChatActivity extends KJActivity {
                 }
             }
         }).start();
-    }
+    }*/
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -229,7 +240,7 @@ public class ChatActivity extends KJActivity {
         if (resultCode != Activity.RESULT_OK) {
             return;
         }
-        if (requestCode == REQUEST_CODE_GETIMAGE_BYSDCARD) {
+        /*if (requestCode == REQUEST_CODE_GETIMAGE_BYSDCARD) {
             Uri dataUri = data.getData();
             if (dataUri != null) {
                 File file = FileUtils.uri2File(aty, dataUri);
@@ -239,7 +250,7 @@ public class ChatActivity extends KJActivity {
                 datas.add(message);
                 adapter.refresh(datas);
             }
-        }
+        }*/
     }
 
     /**
@@ -261,20 +272,28 @@ public class ChatActivity extends KJActivity {
     /**
      * @return 聊天列表内存点击事件监听器
      */
-    private OnChatItemClickListener getOnChatItemClickListener() {
-        return new OnChatItemClickListener() {
+    private ChatActivity.OnChatItemClickListener getOnChatItemClickListener() {
+        return new ChatActivity.OnChatItemClickListener() {
             @Override
             public void onPhotoClick(int position) {
-                KJLoger.debug(datas.get(position).getContent() + "点击图片的");
-                ViewInject.toast(aty, datas.get(position).getContent() + "点击图片的");
+                /*KJLoger.debug(datas.get(position).getContent() + "点击图片的");
+                ViewInject.toast(aty, datas.get(position).getContent() + "点击图片的");*/
+                ToastManager.showToast(ChatActivity.this, "onPhotoClick");
             }
 
             @Override
             public void onTextClick(int position) {
+                ToastManager.showToast(ChatActivity.this, "text:" + position);
             }
 
             @Override
             public void onFaceClick(int position) {
+                ToastManager.showToast(ChatActivity.this, "onFaceClick:" + position);
+            }
+
+            @Override
+            public void onCommentClick(int position) {
+                ToastManager.showToast(ChatActivity.this, "onCommentClick:" + position);
             }
         };
     }
@@ -288,5 +307,8 @@ public class ChatActivity extends KJActivity {
         void onTextClick(int position);
 
         void onFaceClick(int position);
+
+        void onCommentClick(int position);
     }
 }
+

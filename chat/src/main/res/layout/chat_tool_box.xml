@@ -15,13 +15,14 @@
 
         <Button
             android:id="@+id/toolbox_btn_send"
-            android:layout_width="wrap_content"
+            android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="2dp"
             android:text="发送"
+            android:background="@drawable/login_btn_bg_selector"
             android:textColor="#ffffffff"
             android:textSize="15sp" />
 
@@ -40,19 +41,20 @@
             android:id="@+id/toolbox_btn_more"
             android:layout_width="35dp"
             android:layout_height="35dp"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="5dp"
-            android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/toolbox_btn_face"
             android:background="@drawable/selector_chat_more"
-            android:button="@null" />
+            android:button="@null"
+            android:visibility="gone" />
 
         <com.rockerhieu.emojicon.EmojiconEditText
             android:id="@+id/toolbox_et_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@id/toolbox_btn_send"
-            android:layout_toRightOf="@+id/toolbox_btn_more"
+            android:layout_toRightOf="@+id/toolbox_btn_face"
             android:background="@color/emoji_keyboard_bg_light"
             android:inputType="textMultiLine"
             android:maxHeight="60dp"

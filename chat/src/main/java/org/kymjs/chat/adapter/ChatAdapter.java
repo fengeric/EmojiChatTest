@@ -16,18 +16,20 @@
 package org.kymjs.chat.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
-import org.kymjs.chat.ChatActivity.OnChatItemClickListener;
+import com.rockerhieu.emojicon.EmojiconTextView;
+
+import org.kymjs.chat.ChatActivity;
 import org.kymjs.chat.R;
-import org.kymjs.chat.UrlUtils;
 import org.kymjs.chat.bean.Message;
+import org.kymjs.chat.view.CircleImageView;
+import org.kymjs.chat.view.ImageLoad;
 import org.kymjs.kjframe.KJBitmap;
 import org.kymjs.kjframe.utils.StringUtils;
 
@@ -42,13 +44,15 @@ public class ChatAdapter extends BaseAdapter {
     private final Context cxt;
     private List<Message> datas = null;
     private KJBitmap kjb;
-    private OnChatItemClickListener listener;
+    private ChatActivity.OnChatItemClickListener listener;
+    private ImageLoad imageLoad;
 
-    public ChatAdapter(Context cxt, List<Message> datas, OnChatItemClickListener listener) {
+    public ChatAdapter(Context cxt, List<Message> datas, ChatActivity.OnChatItemClickListener listener) {
         this.cxt = cxt;
         if (datas == null) {
             datas = new ArrayList<Message>(0);
         }
+        imageLoad = new ImageLoad(this.cxt);
         this.datas = datas;
         kjb = new KJBitmap();
         this.listener = listener;
@@ -78,11 +82,6 @@ public class ChatAdapter extends BaseAdapter {
     }
 
     @Override
-    public int getItemViewType(int position) {
-        return datas.get(position).getIsSend() ? 1 : 0;
-    }
-
-    @Override
     public int getViewTypeCount() {
         return 2;
     }
@@ -90,27 +89,52 @@ public class ChatAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View v, ViewGroup parent) {
         final ViewHolder holder;
-        final Message data = datas.get(position);
         if (v == null) {
             holder = new ViewHolder();
-            if (data.getIsSend()) {
-                v = View.inflate(cxt, R.layout.chat_item_list_right, null);
-            } else {
-                v = View.inflate(cxt, R.layout.chat_item_list_left, null);
-            }
-            holder.layout_content = (RelativeLayout) v.findViewById(R.id.chat_item_layout_content);
-            holder.img_avatar = (ImageView) v.findViewById(R.id.chat_item_avatar);
-            holder.img_chatimage = (ImageView) v.findViewById(R.id.chat_item_content_image);
-            holder.img_sendfail = (ImageView) v.findViewById(R.id.chat_item_fail);
-            holder.progress = (ProgressBar) v.findViewById(R.id.chat_item_progress);
-            holder.tv_chatcontent = (TextView) v.findViewById(R.id.chat_item_content_text);
-            holder.tv_date = (TextView) v.findViewById(R.id.chat_item_date);
+            v = View.inflate(cxt, R.layout.chat_item_list_right, null);
+            holder.cImageView = (CircleImageView) v
+                    .findViewById(R.id.msg_avater);
+            holder.tv_nick_name = (TextView) v
+                    .findViewById(R.id.msg_nick_name);
+            holder.tv_create_time = (TextView) v
+                    .findViewById(R.id.msg_create_time);
+            holder.bt_comment = (ImageButton) v
+                    .findViewById(R.id.msg_comment_bt);
+            holder.msg_comment_content = (EmojiconTextView) v
+                    .findViewById(R.id.msg_comment_content);
+            holder.msg_comment_parent_content = (EmojiconTextView) v
+                    .findViewById(R.id.msg_comment_parent_content);
             v.setTag(holder);
         } else {
             holder = (ViewHolder) v.getTag();
         }
 
-        holder.tv_date.setText(StringUtils.friendlyTime(StringUtils.getDataTime("yyyy-MM-dd " +
+        final Message msgBean = datas.get(position);
+        if (msgBean != null) {
+            if (!TextUtils.isEmpty(msgBean.getMsg_comment_avater())) {
+                imageLoad.loadImage(holder.cImageView,msgBean.getMsg_comment_avater());
+            }
+
+            holder.tv_nick_name.setText(msgBean.getMsg_comment_nick_name());
+            holder.tv_create_time.setText(StringUtils.friendlyTime(msgBean.getMsg_comment_create_time()));
+            holder.msg_comment_content.setText(msgBean.getMsg_comment_content());
+            holder.msg_comment_parent_content.setText(msgBean.getMsg_comment_parent_nick_name() + ":" + msgBean.getMsg_comment_parent_content());
+            holder.msg_comment_content.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // ToastManager.showToast(context, "bt_comment;" + position);
+                    listener.onTextClick(position);
+                }
+            });
+            holder.bt_comment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // ToastManager.showToast(context, "bt_comment;" + position);
+                    listener.onCommentClick(position);
+                }
+            });
+        }
+        /*holder.tv_date.setText(StringUtils.friendlyTime(StringUtils.getDataTime("yyyy-MM-dd " +
                 "HH:mm:ss")));
         holder.tv_date.setVisibility(View.VISIBLE);
 
@@ -192,17 +216,23 @@ public class ChatAdapter extends BaseAdapter {
                 holder.progress.setVisibility(View.VISIBLE);
                 holder.img_sendfail.setVisibility(View.GONE);
                 break;
-        }
+        }*/
         return v;
     }
 
     static class ViewHolder {
-        TextView tv_date;
-        ImageView img_avatar;
-        TextView tv_chatcontent;
-        ImageView img_chatimage;
-        ImageView img_sendfail;
-        ProgressBar progress;
-        RelativeLayout layout_content;
+//        TextView tv_date;
+//        ImageView img_avatar;
+//        TextView tv_chatcontent;
+//        ImageView img_chatimage;
+//        ImageView img_sendfail;
+//        ProgressBar progress;
+//        RelativeLayout layout_content;
+        CircleImageView cImageView;// 头像
+        TextView tv_nick_name;// 昵称
+        TextView tv_create_time;// 创建时间
+        ImageButton bt_comment;// 发布评论
+        EmojiconTextView msg_comment_content;// 评论内容
+        EmojiconTextView msg_comment_parent_content;// 父评论内容
     }
 }
