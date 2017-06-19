@@ -3,7 +3,7 @@ package com.feng.comment;
 import android.widget.ListView;
 
 import org.kymjs.chat.adapter.ChatAdapter;
-import org.kymjs.chat.bean.Message;
+import org.kymjs.chat.bean.MessageBean;
 import org.kymjs.chat.widget.KJChatKeyboard;
 import org.kymjs.kjframe.KJActivity;
 
@@ -17,7 +17,7 @@ public class MainActivity extends KJActivity {
     private KJChatKeyboard box;
     private ListView mRealListView;
 
-    List<Message> datas = new ArrayList<Message>();
+    List<MessageBean> datas = new ArrayList<MessageBean>();
     private ChatAdapter adapter;
 
     @Override
@@ -40,7 +40,7 @@ public class MainActivity extends KJActivity {
         box.setOnOperationListener(new OnOperationListener() {
             @Override
             public void send(String content) {
-                Message message = new Message(Message.MSG_TYPE_TEXT, Message.MSG_STATE_SUCCESS,
+                MessageBean message = new MessageBean(MessageBean.MSG_TYPE_TEXT, MessageBean.MSG_STATE_SUCCESS,
                         "msg_id1", "msg_comment_id1", "http://images.057.com/FlRECihcVIo1WRJAwDldRxYti1Pq",
                         "nickname1", content, "2017-06-19 14:33:67", "msg_comment_parent_nick_name1","msg_comment_parent_content1",false,100,"msg_comment_user_id1");
                 datas.add(message);
@@ -49,7 +49,7 @@ public class MainActivity extends KJActivity {
 
             @Override
             public void selectedFace(Faceicon content) {
-                Message message = new Message(Message.MSG_TYPE_FACE, Message.MSG_STATE_SUCCESS,
+                MessageBean message = new MessageBean(MessageBean.MSG_TYPE_FACE, MessageBean.MSG_STATE_SUCCESS,
                         "msg_id1", "msg_comment_id1", "http://images.057.com/FlRECihcVIo1WRJAwDldRxYti1Pq",
                         "nickname1", content.getPath(), "2017-06-19 14:33:67", "msg_comment_parent_nick_name1","msg_comment_parent_content1",false,100,"msg_comment_user_id1");
                 datas.add(message);
@@ -100,51 +100,51 @@ public class MainActivity extends KJActivity {
         byte[] emoji = new byte[]{
                 (byte) 0xF0, (byte) 0x9F, (byte) 0x98, (byte) 0x81
         };
-        *//*Message message = new Message(Message.MSG_TYPE_TEXT,
-                Message.MSG_STATE_SUCCESS, "\ue415", "avatar", "Jerry", "avatar",
+        *//*MessageBean message = new MessageBean(MessageBean.MSG_TYPE_TEXT,
+                MessageBean.MSG_STATE_SUCCESS, "\ue415", "avatar", "Jerry", "avatar",
                 new String(emoji), false, true, new Date(System.currentTimeMillis()
                 - (1000 * 60 * 60 * 24) * 8));
-        Message message1 = new Message(Message.MSG_TYPE_TEXT,
-                Message.MSG_STATE_SUCCESS, "Tom", "avatar", "Jerry", "avatar",
+        MessageBean message1 = new MessageBean(MessageBean.MSG_TYPE_TEXT,
+                MessageBean.MSG_STATE_SUCCESS, "Tom", "avatar", "Jerry", "avatar",
                 "以后的版本支持链接高亮喔:http://www.kymjs.com支持http、https、svn、ftp开头的链接",
                 true, true, new Date(System.currentTimeMillis() - (1000 * 60 * 60 * 24) * 8));
-        Message message2 = new Message(Message.MSG_TYPE_PHOTO,
-                Message.MSG_STATE_SUCCESS, "Tom", "avatar", "Jerry", "avatar",
+        MessageBean message2 = new MessageBean(MessageBean.MSG_TYPE_PHOTO,
+                MessageBean.MSG_STATE_SUCCESS, "Tom", "avatar", "Jerry", "avatar",
                 "http://static.oschina.net/uploads/space/2015/0611/103706_rpPc_1157342.png",
                 false, true, new Date(
                 System.currentTimeMillis() - (1000 * 60 * 60 * 24) * 7));
-        Message message6 = new Message(Message.MSG_TYPE_TEXT,
-                Message.MSG_STATE_FAIL, "Tom", "avatar", "Jerry", "avatar",
+        MessageBean message6 = new MessageBean(MessageBean.MSG_TYPE_TEXT,
+                MessageBean.MSG_STATE_FAIL, "Tom", "avatar", "Jerry", "avatar",
                 "test send fail", true, false, new Date(
                 System.currentTimeMillis() - (1000 * 60 * 60 * 24) * 6));
-        Message message7 = new Message(Message.MSG_TYPE_TEXT,
-                Message.MSG_STATE_SENDING, "Tom", "avatar", "Jerry", "avatar",
+        MessageBean message7 = new MessageBean(MessageBean.MSG_TYPE_TEXT,
+                MessageBean.MSG_STATE_SENDING, "Tom", "avatar", "Jerry", "avatar",
                 "<a href=\"http://kymjs.com\">自定义链接</a>也是支持的", true, true, new Date(System.currentTimeMillis()
                 - (1000 * 60 * 60 * 24) * 6));*//*
-        Message message1 = new Message(Message.MSG_TYPE_TEXT, Message.MSG_STATE_SUCCESS,
+        MessageBean message1 = new MessageBean(MessageBean.MSG_TYPE_TEXT, MessageBean.MSG_STATE_SUCCESS,
                 "msg_id1", "msg_comment_id1", "http://images.057.com/FlRECihcVIo1WRJAwDldRxYti1Pq",
                 "nickname1", "message1", "2017-06-19 14:33:67", "msg_comment_parent_nick_name1","msg_comment_parent_content1",false,100,"msg_comment_user_id1");
 
-        Message message2 = new Message(Message.MSG_TYPE_TEXT, Message.MSG_STATE_SUCCESS,
+        MessageBean message2 = new MessageBean(MessageBean.MSG_TYPE_TEXT, MessageBean.MSG_STATE_SUCCESS,
                 "msg_id1", "msg_comment_id1", "http://images.057.com/FlRECihcVIo1WRJAwDldRxYti1Pq",
                 "nickname1", "message2", "2017-06-19 14:33:67", "msg_comment_parent_nick_name1","msg_comment_parent_content1",false,100,"msg_comment_user_id1");
 
-        Message message3 = new Message(Message.MSG_TYPE_TEXT, Message.MSG_STATE_SUCCESS,
+        MessageBean message3 = new MessageBean(MessageBean.MSG_TYPE_TEXT, MessageBean.MSG_STATE_SUCCESS,
                 "msg_id1", "msg_comment_id1", "http://images.057.com/FlRECihcVIo1WRJAwDldRxYti1Pq",
                 "nickname1", "message3", "2017-06-19 14:33:67", "msg_comment_parent_nick_name1","msg_comment_parent_content1",false,100,"msg_comment_user_id1");
 
-        Message message4 = new Message(Message.MSG_TYPE_TEXT, Message.MSG_STATE_SUCCESS,
+        MessageBean message4 = new MessageBean(MessageBean.MSG_TYPE_TEXT, MessageBean.MSG_STATE_SUCCESS,
                 "msg_id1", "msg_comment_id1", "http://images.057.com/FlRECihcVIo1WRJAwDldRxYti1Pq",
                 "nickname1", "message4", "2017-06-19 14:33:67", "msg_comment_parent_nick_name1","msg_comment_parent_content1",false,100,"msg_comment_user_id1");
 
-        Message message5 = new Message(Message.MSG_TYPE_TEXT, Message.MSG_STATE_SUCCESS,
+        MessageBean message5 = new MessageBean(MessageBean.MSG_TYPE_TEXT, MessageBean.MSG_STATE_SUCCESS,
                 "msg_id1", "msg_comment_id1", "http://images.057.com/FlRECihcVIo1WRJAwDldRxYti1Pq",
                 "nickname1", "message5", "2017-06-19 14:33:67", "msg_comment_parent_nick_name1","msg_comment_parent_content1",false,100,"msg_comment_user_id1");
 
-        Message message6 = new Message(Message.MSG_TYPE_TEXT, Message.MSG_STATE_SUCCESS,
+        MessageBean message6 = new MessageBean(MessageBean.MSG_TYPE_TEXT, MessageBean.MSG_STATE_SUCCESS,
                 "msg_id1", "msg_comment_id1", "http://images.057.com/FlRECihcVIo1WRJAwDldRxYti1Pq",
                 "nickname1", "message6", "2017-06-19 14:33:67", "msg_comment_parent_nick_name1","msg_comment_parent_content1",false,100,"msg_comment_user_id1");
-        Message message7 = new Message(Message.MSG_TYPE_TEXT, Message.MSG_STATE_SUCCESS,
+        MessageBean message7 = new MessageBean(MessageBean.MSG_TYPE_TEXT, MessageBean.MSG_STATE_SUCCESS,
                 "msg_id1", "msg_comment_id1", "http://images.057.com/FlRECihcVIo1WRJAwDldRxYti1Pq",
                 "nickname1", "message7", "2017-06-19 14:33:67", "msg_comment_parent_nick_name1","msg_comment_parent_content1",false,100,"msg_comment_user_id1");
 
@@ -161,9 +161,9 @@ public class MainActivity extends KJActivity {
         mRealListView.setAdapter(adapter);
     }
 
-    *//*private void createReplayMsg(Message message) {
-        final Message reMessage = new Message(message.getType(), Message.MSG_STATE_SUCCESS, "Tom",
-                "avatar", "Jerry", "avatar", message.getType() == Message.MSG_TYPE_TEXT ? "返回:"
+    *//*private void createReplayMsg(MessageBean message) {
+        final MessageBean reMessage = new MessageBean(message.getType(), MessageBean.MSG_STATE_SUCCESS, "Tom",
+                "avatar", "Jerry", "avatar", message.getType() == MessageBean.MSG_TYPE_TEXT ? "返回:"
                 + message.getContent() : message.getContent(), false,
                 true, new Date());
         new Thread(new Runnable() {
@@ -226,7 +226,7 @@ public class MainActivity extends KJActivity {
             Uri dataUri = data.getData();
             if (dataUri != null) {
                 File file = FileUtils.uri2File(aty, dataUri);
-                Message message = new Message(Message.MSG_TYPE_PHOTO, Message.MSG_STATE_SUCCESS,
+                MessageBean message = new MessageBean(MessageBean.MSG_TYPE_PHOTO, MessageBean.MSG_STATE_SUCCESS,
                         "Tom", "avatar", "Jerry",
                         "avatar", file.getAbsolutePath(), true, true, new Date());
                 datas.add(message);

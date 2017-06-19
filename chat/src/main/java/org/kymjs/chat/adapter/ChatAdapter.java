@@ -27,7 +27,7 @@ import com.rockerhieu.emojicon.EmojiconTextView;
 
 import org.kymjs.chat.ChatActivity;
 import org.kymjs.chat.R;
-import org.kymjs.chat.bean.Message;
+import org.kymjs.chat.bean.MessageBean;
 import org.kymjs.chat.view.CircleImageView;
 import org.kymjs.chat.view.ImageLoad;
 import org.kymjs.kjframe.KJBitmap;
@@ -42,15 +42,15 @@ import java.util.List;
 public class ChatAdapter extends BaseAdapter {
 
     private final Context cxt;
-    private List<Message> datas = null;
+    private List<MessageBean> datas = null;
     private KJBitmap kjb;
     private ChatActivity.OnChatItemClickListener listener;
     private ImageLoad imageLoad;
 
-    public ChatAdapter(Context cxt, List<Message> datas, ChatActivity.OnChatItemClickListener listener) {
+    public ChatAdapter(Context cxt, List<MessageBean> datas, ChatActivity.OnChatItemClickListener listener) {
         this.cxt = cxt;
         if (datas == null) {
-            datas = new ArrayList<Message>(0);
+            datas = new ArrayList<MessageBean>(0);
         }
         imageLoad = new ImageLoad(this.cxt);
         this.datas = datas;
@@ -58,7 +58,7 @@ public class ChatAdapter extends BaseAdapter {
         this.listener = listener;
     }
 
-    public void refresh(List<Message> datas) {
+    public void refresh(List<MessageBean> datas) {
         if (datas == null) {
             datas = new ArrayList<>(0);
         }
@@ -109,7 +109,7 @@ public class ChatAdapter extends BaseAdapter {
             holder = (ViewHolder) v.getTag();
         }
 
-        final Message msgBean = datas.get(position);
+        final MessageBean msgBean = datas.get(position);
         if (msgBean != null) {
             if (!TextUtils.isEmpty(msgBean.getMsg_comment_avater())) {
                 imageLoad.loadImage(holder.cImageView,msgBean.getMsg_comment_avater());
@@ -118,7 +118,12 @@ public class ChatAdapter extends BaseAdapter {
             holder.tv_nick_name.setText(msgBean.getMsg_comment_nick_name());
             holder.tv_create_time.setText(StringUtils.friendlyTime(msgBean.getMsg_comment_create_time()));
             holder.msg_comment_content.setText(msgBean.getMsg_comment_content());
-            holder.msg_comment_parent_content.setText(msgBean.getMsg_comment_parent_nick_name() + ":" + msgBean.getMsg_comment_parent_content());
+            if (!TextUtils.isEmpty(msgBean.getMsg_comment_parent_content())) {
+                holder.msg_comment_parent_content.setText(msgBean.getMsg_comment_parent_nick_name() + ":" + msgBean.getMsg_comment_parent_content());
+                holder.msg_comment_parent_content.setVisibility(View.VISIBLE);
+            } else {
+                holder.msg_comment_parent_content.setVisibility(View.GONE);
+            }
             holder.msg_comment_content.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -139,7 +144,7 @@ public class ChatAdapter extends BaseAdapter {
         holder.tv_date.setVisibility(View.VISIBLE);
 
         //如果是文本类型，则隐藏图片，如果是图片则隐藏文本
-        if (data.getType() == Message.MSG_TYPE_TEXT) {
+        if (data.getType() == MessageBean.MSG_TYPE_TEXT) {
             holder.img_chatimage.setVisibility(View.GONE);
             holder.tv_chatcontent.setVisibility(View.VISIBLE);
             if (data.getContent().contains("href")) {
@@ -163,7 +168,7 @@ public class ChatAdapter extends BaseAdapter {
         }
 
         //如果是表情或图片，则不显示气泡，如果是图片则显示气泡
-        if (data.getType() != Message.MSG_TYPE_TEXT) {
+        if (data.getType() != MessageBean.MSG_TYPE_TEXT) {
             holder.layout_content.setBackgroundResource(android.R.color.transparent);
         } else {
             if (data.getIsSend()) {
@@ -191,10 +196,10 @@ public class ChatAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     switch (data.getType()) {
-                        case Message.MSG_TYPE_PHOTO:
+                        case MessageBean.MSG_TYPE_PHOTO:
                             listener.onPhotoClick(position);
                             break;
-                        case Message.MSG_TYPE_FACE:
+                        case MessageBean.MSG_TYPE_FACE:
                             listener.onFaceClick(position);
                             break;
                     }
@@ -204,15 +209,15 @@ public class ChatAdapter extends BaseAdapter {
 
         //消息发送的状态
         switch (data.getState()) {
-            case Message.MSG_STATE_FAIL:
+            case MessageBean.MSG_STATE_FAIL:
                 holder.progress.setVisibility(View.GONE);
                 holder.img_sendfail.setVisibility(View.VISIBLE);
                 break;
-            case Message.MSG_STATE_SUCCESS:
+            case MessageBean.MSG_STATE_SUCCESS:
                 holder.progress.setVisibility(View.GONE);
                 holder.img_sendfail.setVisibility(View.GONE);
                 break;
-            case Message.MSG_STATE_SENDING:
+            case MessageBean.MSG_STATE_SENDING:
                 holder.progress.setVisibility(View.VISIBLE);
                 holder.img_sendfail.setVisibility(View.GONE);
                 break;

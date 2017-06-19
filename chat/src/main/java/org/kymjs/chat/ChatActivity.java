@@ -13,7 +13,7 @@ import android.widget.ListView;
 import org.kymjs.chat.adapter.ChatAdapter;
 import org.kymjs.chat.bean.Emojicon;
 import org.kymjs.chat.bean.Faceicon;
-import org.kymjs.chat.bean.Message;
+import org.kymjs.chat.bean.MessageBean;
 import org.kymjs.chat.emoji.DisplayRules;
 import org.kymjs.chat.util.DateUtil;
 import org.kymjs.chat.util.ToastManager;
@@ -31,7 +31,7 @@ public class ChatActivity extends KJActivity {
     private KJChatKeyboard box;
     private ListView mRealListView;
 
-    List<Message> datas = new ArrayList<Message>();
+    List<MessageBean> datas = new ArrayList<MessageBean>();
     private ChatAdapter adapter;
 
     @Override
@@ -58,19 +58,19 @@ public class ChatActivity extends KJActivity {
                     ToastManager.showToast(ChatActivity.this, "input content");
                     return;
                 }
-                Message message = new Message(Message.MSG_TYPE_TEXT, Message.MSG_STATE_SUCCESS,
+                MessageBean messageBean = new MessageBean(MessageBean.MSG_TYPE_TEXT, MessageBean.MSG_STATE_SUCCESS,
                         "msg_id1", "msg_comment_id1", "http://images.057.com/FlRECihcVIo1WRJAwDldRxYti1Pq",
                         "nickname1", content, DateUtil.transNowTime(), "msg_comment_parent_nick_name1", "msg_comment_parent_content1", false, 100, "msg_comment_user_id1");
-                datas.add(message);
+                datas.add(messageBean);
                 adapter.refresh(datas);
             }
 
             @Override
             public void selectedFace(Faceicon content) {
-                Message message = new Message(Message.MSG_TYPE_FACE, Message.MSG_STATE_SUCCESS,
+                MessageBean messageBean = new MessageBean(MessageBean.MSG_TYPE_FACE, MessageBean.MSG_STATE_SUCCESS,
                         "msg_id1", "msg_comment_id1", "http://images.057.com/FlRECihcVIo1WRJAwDldRxYti1Pq",
                         "nickname1", content.getPath(), "2017-06-19 14:33:67", "msg_comment_parent_nick_name1", "msg_comment_parent_content1", false, 100, "msg_comment_user_id1");
-                datas.add(message);
+                datas.add(messageBean);
                 adapter.refresh(datas);
             }
 
@@ -118,70 +118,70 @@ public class ChatActivity extends KJActivity {
         byte[] emoji = new byte[]{
                 (byte) 0xF0, (byte) 0x9F, (byte) 0x98, (byte) 0x81
         };
-        /*Message message = new Message(Message.MSG_TYPE_TEXT,
-                Message.MSG_STATE_SUCCESS, "\ue415", "avatar", "Jerry", "avatar",
+        /*MessageBean message = new MessageBean(MessageBean.MSG_TYPE_TEXT,
+                MessageBean.MSG_STATE_SUCCESS, "\ue415", "avatar", "Jerry", "avatar",
                 new String(emoji), false, true, new Date(System.currentTimeMillis()
                 - (1000 * 60 * 60 * 24) * 8));
-        Message message1 = new Message(Message.MSG_TYPE_TEXT,
-                Message.MSG_STATE_SUCCESS, "Tom", "avatar", "Jerry", "avatar",
+        MessageBean messageBean1 = new MessageBean(MessageBean.MSG_TYPE_TEXT,
+                MessageBean.MSG_STATE_SUCCESS, "Tom", "avatar", "Jerry", "avatar",
                 "以后的版本支持链接高亮喔:http://www.kymjs.com支持http、https、svn、ftp开头的链接",
                 true, true, new Date(System.currentTimeMillis() - (1000 * 60 * 60 * 24) * 8));
-        Message message2 = new Message(Message.MSG_TYPE_PHOTO,
-                Message.MSG_STATE_SUCCESS, "Tom", "avatar", "Jerry", "avatar",
+        MessageBean messageBean2 = new MessageBean(MessageBean.MSG_TYPE_PHOTO,
+                MessageBean.MSG_STATE_SUCCESS, "Tom", "avatar", "Jerry", "avatar",
                 "http://static.oschina.net/uploads/space/2015/0611/103706_rpPc_1157342.png",
                 false, true, new Date(
                 System.currentTimeMillis() - (1000 * 60 * 60 * 24) * 7));
-        Message message6 = new Message(Message.MSG_TYPE_TEXT,
-                Message.MSG_STATE_FAIL, "Tom", "avatar", "Jerry", "avatar",
+        MessageBean messageBean6 = new MessageBean(MessageBean.MSG_TYPE_TEXT,
+                MessageBean.MSG_STATE_FAIL, "Tom", "avatar", "Jerry", "avatar",
                 "test send fail", true, false, new Date(
                 System.currentTimeMillis() - (1000 * 60 * 60 * 24) * 6));
-        Message message7 = new Message(Message.MSG_TYPE_TEXT,
-                Message.MSG_STATE_SENDING, "Tom", "avatar", "Jerry", "avatar",
+        MessageBean messageBean7 = new MessageBean(MessageBean.MSG_TYPE_TEXT,
+                MessageBean.MSG_STATE_SENDING, "Tom", "avatar", "Jerry", "avatar",
                 "<a href=\"http://kymjs.com\">自定义链接</a>也是支持的", true, true, new Date(System.currentTimeMillis()
                 - (1000 * 60 * 60 * 24) * 6));*/
-        Message message1 = new Message(Message.MSG_TYPE_TEXT, Message.MSG_STATE_SUCCESS,
+        MessageBean messageBean1 = new MessageBean(MessageBean.MSG_TYPE_TEXT, MessageBean.MSG_STATE_SUCCESS,
                 "msg_id1", "msg_comment_id1", "http://images.057.com/FlRECihcVIo1WRJAwDldRxYti1Pq",
-                "nickname1", "message1", "2016-06-19 14:33:67", "msg_comment_parent_nick_name1", "msg_comment_parent_content1", false, 101, "msg_comment_user_id1");
+                "nickname1", "message1message1message1message1message1message1message1message1message1message1message1message1message1message1message1message1message1", "2016-06-19 14:33:67", "msg_comment_parent_nick_name1", "", false, 101, "msg_comment_user_id1");
 
-        Message message2 = new Message(Message.MSG_TYPE_TEXT, Message.MSG_STATE_SUCCESS,
+        MessageBean messageBean2 = new MessageBean(MessageBean.MSG_TYPE_TEXT, MessageBean.MSG_STATE_SUCCESS,
                 "msg_id2", "msg_comment_id1", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1497864978450&di=68b127823f451fda353b7709444692de&imgtype=0&src=http%3A%2F%2Ftupian.enterdesk.com%2F2012%2F0602%2Fyt%2F18%2F73869f30446c7978916445105b015d97.jpg",
-                "nickname2", "message2", "2017-06-19 14:49:67", "msg_comment_parent_nick_name2", "msg_comment_parent_content2", false, 102, "msg_comment_user_id2");
+                "nickname2", "messageBean2", "2017-06-19 14:49:67", "msg_comment_parent_nick_name2", "msg_comment_parent_content2", false, 102, "msg_comment_user_id2");
 
-        Message message3 = new Message(Message.MSG_TYPE_TEXT, Message.MSG_STATE_SUCCESS,
+        MessageBean messageBean3 = new MessageBean(MessageBean.MSG_TYPE_TEXT, MessageBean.MSG_STATE_SUCCESS,
                 "msg_id3", "msg_comment_id1", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1497864978446&di=e00c8be0a84c0ce718127e530b24c82d&imgtype=0&src=http%3A%2F%2Ftupian.enterdesk.com%2F2013%2Fxll%2F012%2F05%2F9%2F7.jpg",
-                "nickname3", "message3", "2017-06-14 14:33:67", "msg_comment_parent_nick_name3", "msg_comment_parent_content3", false, 103, "msg_comment_user_id3");
+                "nickname3", "messageBean3", "2017-06-14 14:33:67", "msg_comment_parent_nick_name3", "msg_comment_parent_content3", false, 103, "msg_comment_user_id3");
 
-        Message message4 = new Message(Message.MSG_TYPE_TEXT, Message.MSG_STATE_SUCCESS,
+        MessageBean messageBean4 = new MessageBean(MessageBean.MSG_TYPE_TEXT, MessageBean.MSG_STATE_SUCCESS,
                 "msg_id4", "msg_comment_id1", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1497864978447&di=8529af65b1312b0502f41615a3089ebd&imgtype=0&src=http%3A%2F%2Fimg4q.duitang.com%2Fuploads%2Fitem%2F201505%2F10%2F20150510055619_ZhsMQ.thumb.224_0.jpeg",
-                "nickname4", "message4", "2017-06-15 14:33:67", "msg_comment_parent_nick_name4", "msg_comment_parent_content4", false, 104, "msg_comment_user_id4");
+                "nickname4", "messageBean4", "2017-06-15 14:33:67", "msg_comment_parent_nick_name4", "msg_comment_parent_content4", false, 104, "msg_comment_user_id4");
 
-        Message message5 = new Message(Message.MSG_TYPE_TEXT, Message.MSG_STATE_SUCCESS,
+        MessageBean messageBean5 = new MessageBean(MessageBean.MSG_TYPE_TEXT, MessageBean.MSG_STATE_SUCCESS,
                 "msg_id1", "msg_comment_id1", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1497864978447&di=05a9c95ba42fe36c32d8b75c7187594a&imgtype=0&src=http%3A%2F%2Ftupian.aladd.net%2F2014%2F6%2F37.jpg",
-                "nickname5", "message5", "2017-06-16 14:33:67", "msg_comment_parent_nick_name5", "msg_comment_parent_content5", false, 105, "msg_comment_user_id5");
+                "nickname5", "messageBean5", "2017-06-16 14:33:67", "msg_comment_parent_nick_name5", "msg_comment_parent_content5", false, 105, "msg_comment_user_id5");
 
-        Message message6 = new Message(Message.MSG_TYPE_TEXT, Message.MSG_STATE_SUCCESS,
+        MessageBean messageBean6 = new MessageBean(MessageBean.MSG_TYPE_TEXT, MessageBean.MSG_STATE_SUCCESS,
                 "msg_id6", "msg_comment_id1", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1497864978447&di=95f47767514275462af92f4fc940bc63&imgtype=0&src=http%3A%2F%2Fimg.qqzhi.com%2Fupload%2Fimg_1_2808233116D177345603_23.jpg",
-                "nickname6", "message6", "2017-06-17 14:33:67", "msg_comment_parent_nick_name6", "msg_comment_parent_content6", false, 106, "msg_comment_user_id6");
-        Message message7 = new Message(Message.MSG_TYPE_TEXT, Message.MSG_STATE_SUCCESS,
+                "nickname6", "messageBean6", "2017-06-17 14:33:67", "msg_comment_parent_nick_name6", "msg_comment_parent_content6", false, 106, "msg_comment_user_id6");
+        MessageBean messageBean7 = new MessageBean(MessageBean.MSG_TYPE_TEXT, MessageBean.MSG_STATE_SUCCESS,
                 "msg_id7", "msg_comment_id1", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1497864978447&di=8aaa2513ba1ef5743006cabc1530c92a&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F609*342%2F22130.jpg",
-                "nickname7", "message7", "2017-06-18 14:33:67", "msg_comment_parent_nick_name7", "msg_comment_parent_content7", false, 107, "msg_comment_user_id7");
+                "nickname7", "messageBean7", "2017-06-18 14:33:67", "msg_comment_parent_nick_name7", "msg_comment_parent_content7", false, 107, "msg_comment_user_id7");
 
 
-        datas.add(message1);
-        datas.add(message2);
-        datas.add(message3);
-        datas.add(message4);
-        datas.add(message5);
-        datas.add(message6);
-        datas.add(message7);
+        datas.add(messageBean1);
+        datas.add(messageBean2);
+        datas.add(messageBean3);
+        datas.add(messageBean4);
+        datas.add(messageBean5);
+        datas.add(messageBean6);
+        datas.add(messageBean7);
 
         adapter = new ChatAdapter(this, datas, getOnChatItemClickListener());
         mRealListView.setAdapter(adapter);
     }
 
-    /*private void createReplayMsg(Message message) {
-        final Message reMessage = new Message(message.getType(), Message.MSG_STATE_SUCCESS, "Tom",
-                "avatar", "Jerry", "avatar", message.getType() == Message.MSG_TYPE_TEXT ? "返回:"
+    /*private void createReplayMsg(MessageBean message) {
+        final MessageBean reMessage = new MessageBean(message.getType(), MessageBean.MSG_STATE_SUCCESS, "Tom",
+                "avatar", "Jerry", "avatar", message.getType() == MessageBean.MSG_TYPE_TEXT ? "返回:"
                 + message.getContent() : message.getContent(), false,
                 true, new Date());
         new Thread(new Runnable() {
@@ -244,7 +244,7 @@ public class ChatActivity extends KJActivity {
             Uri dataUri = data.getData();
             if (dataUri != null) {
                 File file = FileUtils.uri2File(aty, dataUri);
-                Message message = new Message(Message.MSG_TYPE_PHOTO, Message.MSG_STATE_SUCCESS,
+                MessageBean message = new MessageBean(MessageBean.MSG_TYPE_PHOTO, MessageBean.MSG_STATE_SUCCESS,
                         "Tom", "avatar", "Jerry",
                         "avatar", file.getAbsolutePath(), true, true, new Date());
                 datas.add(message);
@@ -284,6 +284,7 @@ public class ChatActivity extends KJActivity {
             @Override
             public void onTextClick(int position) {
                 ToastManager.showToast(ChatActivity.this, "text:" + position);
+
             }
 
             @Override

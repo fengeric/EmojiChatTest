@@ -20,7 +20,7 @@ package org.kymjs.chat.bean;
  *
  * @author kymjs (http://www.kymjs.com/)
  */
-public class Message {
+public class MessageBean {
     public final static int MSG_TYPE_TEXT = 3;
     public final static int MSG_TYPE_PHOTO = 1;
     public final static int MSG_TYPE_FACE = 2;
@@ -44,10 +44,10 @@ public class Message {
     private int msg_comment_like_num;//赞的数量
     private String msg_comment_user_id;//用户的编号
 
-    public Message(int msg_type, int msg_state, String msg_id, String msg_comment_id, String msg_comment_avater,
-                   String msg_comment_nick_name, String msg_comment_content, String msg_comment_create_time,
-                   String msg_comment_parent_nick_name, String msg_comment_parent_content, boolean msg_comment_parent_is_del,
-                   int msg_comment_like_num, String msg_comment_user_id) {
+    public MessageBean(int msg_type, int msg_state, String msg_id, String msg_comment_id, String msg_comment_avater,
+                       String msg_comment_nick_name, String msg_comment_content, String msg_comment_create_time,
+                       String msg_comment_parent_nick_name, String msg_comment_parent_content, boolean msg_comment_parent_is_del,
+                       int msg_comment_like_num, String msg_comment_user_id) {
         super();
         this.msg_type = msg_type;
         this.msg_state = msg_state;
