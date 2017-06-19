@@ -15,6 +15,7 @@ import org.kymjs.chat.bean.Emojicon;
 import org.kymjs.chat.bean.Faceicon;
 import org.kymjs.chat.bean.MessageBean;
 import org.kymjs.chat.emoji.DisplayRules;
+import org.kymjs.chat.inter.OnChatItemClickListener;
 import org.kymjs.chat.util.DateUtil;
 import org.kymjs.chat.util.ToastManager;
 import org.kymjs.chat.widget.KJChatKeyboard;
@@ -272,8 +273,8 @@ public class ChatActivity extends KJActivity {
     /**
      * @return 聊天列表内存点击事件监听器
      */
-    private ChatActivity.OnChatItemClickListener getOnChatItemClickListener() {
-        return new ChatActivity.OnChatItemClickListener() {
+    private OnChatItemClickListener getOnChatItemClickListener() {
+        return new OnChatItemClickListener() {
             @Override
             public void onPhotoClick(int position) {
                 /*KJLoger.debug(datas.get(position).getContent() + "点击图片的");
@@ -297,19 +298,6 @@ public class ChatActivity extends KJActivity {
                 ToastManager.showToast(ChatActivity.this, "onCommentClick:" + position);
             }
         };
-    }
-
-    /**
-     * 聊天列表中对内容的点击事件监听
-     */
-    public interface OnChatItemClickListener {
-        void onPhotoClick(int position);
-
-        void onTextClick(int position);
-
-        void onFaceClick(int position);
-
-        void onCommentClick(int position);
     }
 }
 

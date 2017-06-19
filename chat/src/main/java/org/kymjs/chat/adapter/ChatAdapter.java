@@ -25,9 +25,9 @@ import android.widget.TextView;
 
 import com.rockerhieu.emojicon.EmojiconTextView;
 
-import org.kymjs.chat.ChatActivity;
 import org.kymjs.chat.R;
 import org.kymjs.chat.bean.MessageBean;
+import org.kymjs.chat.inter.OnChatItemClickListener;
 import org.kymjs.chat.view.CircleImageView;
 import org.kymjs.chat.view.ImageLoad;
 import org.kymjs.kjframe.KJBitmap;
@@ -44,10 +44,10 @@ public class ChatAdapter extends BaseAdapter {
     private final Context cxt;
     private List<MessageBean> datas = null;
     private KJBitmap kjb;
-    private ChatActivity.OnChatItemClickListener listener;
+    private OnChatItemClickListener listener;
     private ImageLoad imageLoad;
 
-    public ChatAdapter(Context cxt, List<MessageBean> datas, ChatActivity.OnChatItemClickListener listener) {
+    public ChatAdapter(Context cxt, List<MessageBean> datas,OnChatItemClickListener listener) {
         this.cxt = cxt;
         if (datas == null) {
             datas = new ArrayList<MessageBean>(0);

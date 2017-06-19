@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:orientation="vertical"
+    android:elevation="10dp"
     android:padding="6dp">
 
     <RelativeLayout
@@ -70,13 +71,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:visibility="gone"
         android:layout_marginLeft="65dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/bg_chat"
         android:text="枫：父评论内容父评论内容fdgdfgsfdgsdfggj;lkkkkkkkkkkkk内容"
         android:textColor="@color/unselect_text_color"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:visibility="gone" />
     <!--<TextView
         android:id="@+id/chat_item_date"
         style="@style/chat_item_date"
