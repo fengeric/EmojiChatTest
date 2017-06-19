@@ -128,14 +128,14 @@ public class ChatAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     // ToastManager.showToast(context, "bt_comment;" + position);
-                    listener.onTextClick(position);
+                    listener.onTextClick(msgBean, position);
                 }
             });
             holder.bt_comment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // ToastManager.showToast(context, "bt_comment;" + position);
-                    listener.onCommentClick(position);
+                    listener.onCommentClick(msgBean, position);
                 }
             });
         }

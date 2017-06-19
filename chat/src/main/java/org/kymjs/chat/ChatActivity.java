@@ -17,7 +17,6 @@ import org.kymjs.chat.bean.MessageBean;
 import org.kymjs.chat.emoji.DisplayRules;
 import org.kymjs.chat.inter.OnChatItemClickListener;
 import org.kymjs.chat.util.DateUtil;
-import org.kymjs.chat.util.LogUtil;
 import org.kymjs.chat.util.ToastManager;
 import org.kymjs.chat.widget.KJChatKeyboard;
 import org.kymjs.kjframe.KJActivity;
@@ -66,6 +65,10 @@ public class ChatActivity extends KJActivity {
                         "nickname1", content, DateUtil.transNowTime(), "msg_comment_parent_nick_name1", "msg_comment_parent_content1", false, 100, "msg_comment_user_id1");
                 datas.add(messageBean);
                 adapter.refresh(datas);
+
+                box.hideLayout();
+                box.hideKeyboard(aty);
+                box.hideEditLayout();
             }
 
             @Override
@@ -281,28 +284,30 @@ public class ChatActivity extends KJActivity {
     private OnChatItemClickListener getOnChatItemClickListener() {
         return new OnChatItemClickListener() {
             @Override
-            public void onPhotoClick(int position) {
+            public void onPhotoClick(MessageBean msgBean, int position) {
                 /*KJLoger.debug(datas.get(position).getContent() + "点击图片的");
                 ViewInject.toast(aty, datas.get(position).getContent() + "点击图片的");*/
-                ToastManager.showToast(ChatActivity.this, "onPhotoClick");
+                // ToastManager.showToast(ChatActivity.this, "onPhotoClick");
+
             }
 
             @Override
-            public void onTextClick(int position) {
+            public void onTextClick(MessageBean msgBean, int position) {
                 ToastManager.showToast(ChatActivity.this, "text:" + position);
 
             }
 
             @Override
-            public void onFaceClick(int position) {
+            public void onFaceClick(MessageBean msgBean, int position) {
                 ToastManager.showToast(ChatActivity.this, "onFaceClick:" + position);
             }
 
             @Override
-            public void onCommentClick(int position) {
+            public void onCommentClick(MessageBean msgBean, int position) {
                 // ToastManager.showToast(ChatActivity.this, "onCommentClick:" + position);
                 box.showEditLayout();
                 box.showKeyboard(ChatActivity.this);
+                box.setEtMsgHint("@" + msgBean.getMsg_comment_parent_nick_name() + ":");
             }
         };
     }

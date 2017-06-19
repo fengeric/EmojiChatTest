@@ -260,6 +260,9 @@ public class KJChatKeyboard extends RelativeLayout implements
     public void hideEditLayout(){
         if (chat_all_layout != null) {
             chat_all_layout.setVisibility(View.GONE);
+            if (mEtMsg != null) {
+                mEtMsg.setHint("");
+            }
         }
     }
 
@@ -269,6 +272,12 @@ public class KJChatKeyboard extends RelativeLayout implements
             if (mEtMsg != null) {
                 mEtMsg.requestFocus();
             }
+        }
+    }
+
+    public void setEtMsgHint(String hint){
+        if (mEtMsg != null) {
+            mEtMsg.setHint(hint);
         }
     }
 
