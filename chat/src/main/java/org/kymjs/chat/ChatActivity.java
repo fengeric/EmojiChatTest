@@ -94,7 +94,7 @@ public class ChatActivity extends KJActivity implements XListView.IXListViewList
                 MessageBean messageBean = new MessageBean(MessageBean.MSG_TYPE_TEXT, MessageBean.MSG_STATE_SUCCESS,
                         "msg_id1", "msg_comment_id1", "http://images.057.com/FlRECihcVIo1WRJAwDldRxYti1Pq",
                         "nickname1", content, DateUtil.transNowTime(), "msg_comment_parent_nick_name1", "msg_comment_parent_content1", false, 100, "msg_comment_user_id1");
-                datas.add(messageBean);
+                datas.add(0, messageBean);
                 adapter.refresh(datas);
 
                 box.hideLayout();
