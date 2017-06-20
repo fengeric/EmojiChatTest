@@ -3,12 +3,12 @@ package org.kymjs.chat;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ListView;
 
 import org.kymjs.chat.adapter.ChatAdapter;
 import org.kymjs.chat.bean.Emojicon;
@@ -17,7 +17,9 @@ import org.kymjs.chat.bean.MessageBean;
 import org.kymjs.chat.emoji.DisplayRules;
 import org.kymjs.chat.inter.OnChatItemClickListener;
 import org.kymjs.chat.util.DateUtil;
+import org.kymjs.chat.util.LogUtil;
 import org.kymjs.chat.util.ToastManager;
+import org.kymjs.chat.view.XListView;
 import org.kymjs.chat.widget.KJChatKeyboard;
 import org.kymjs.kjframe.KJActivity;
 
@@ -25,12 +27,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChatActivity extends KJActivity {
+public class ChatActivity extends KJActivity implements XListView.IXListViewListener{
 
     public static final int REQUEST_CODE_GETIMAGE_BYSDCARD = 0x1;
 
     private KJChatKeyboard box;
-    private ListView mRealListView;
+    private XListView mRealListView;
+    private int pageIndex = 1;//当前页码
+    private Handler mHandler;
 
     List<MessageBean> datas = new ArrayList<MessageBean>();
     private ChatAdapter adapter;
@@ -45,11 +49,38 @@ public class ChatActivity extends KJActivity {
         super.initWidget();
         box = (KJChatKeyboard) findViewById(org.kymjs.chat.R.id.chat_msg_input_box);
         box.hideEditLayout();
-        mRealListView = (ListView) findViewById(org.kymjs.chat.R.id.chat_listview);
-
-        mRealListView.setSelector(android.R.color.transparent);
-        initMessageInputToolBox();
         initListView();
+        initMessageInputToolBox();
+    }
+
+    @Override
+    public void onRefresh() {
+        pageIndex = 1;
+        LogUtil.v(getClass(), "onRefresh---" + "pageIndex:" + pageIndex);
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                onDataLoaded();
+            }
+        }, 2000);
+    }
+
+    @Override
+    public void onLoadMore() {
+        pageIndex ++;
+        LogUtil.v(getClass(), "onRefresh---" + "onLoadMore:" + pageIndex);
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                onDataLoaded();
+            }
+        }, 2000);
+    }
+
+    // 加载数据完成后执行
+    private void onDataLoaded() {
+        mRealListView.stopRefresh();
+        mRealListView.stopLoadMore();
     }
 
     private void initMessageInputToolBox() {
@@ -121,6 +152,13 @@ public class ChatActivity extends KJActivity {
     }
 
     private void initListView() {
+        mHandler = new Handler();
+        mRealListView = (XListView) findViewById(org.kymjs.chat.R.id.chat_listview);
+        mRealListView.setPullLoadEnable(true);
+        mRealListView.setPullRefreshEnable(true);
+        mRealListView.setXListViewListener(this);
+        mRealListView.setSelector(android.R.color.transparent);
+
         byte[] emoji = new byte[]{
                 (byte) 0xF0, (byte) 0x9F, (byte) 0x98, (byte) 0x81
         };
